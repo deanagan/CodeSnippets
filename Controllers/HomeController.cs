@@ -12,7 +12,20 @@ namespace CodeSnippets.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private static Problem _problem = new Problem();
+        private static List<Problem> _problem = new List<Problem>
+        {
+            new Problem {
+                Title = "Lorem Ipsum",
+                Description = "The quick brown fox jumped",
+                Solution = "Don't jump over the moon"
+            },
+            new Problem {
+                Title = "Fast and Furious",
+                Description = "Too fast too bad",
+                Solution = "Click it or cop it"
+            },
+
+        };
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -21,13 +34,13 @@ namespace CodeSnippets.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_problem);
         }
 
         [HttpGet("[action]", Name = "Problems")]
         public IActionResult Add()
         {
-            return View(_problem);
+            return View();
         }
 
         [HttpPost("[action]")]
@@ -35,10 +48,8 @@ namespace CodeSnippets.Controllers
         {
             if (ModelState.IsValid)
             {
-                _problem.Title = problem.Title;
-                _problem.Description = problem.Description;
-                _problem.Solution = problem.Solution;
-                return RedirectToAction("Add");
+                _problem.Add(problem);
+                return RedirectToAction("Index");
             }
             else
             {

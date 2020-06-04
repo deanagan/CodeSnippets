@@ -1,14 +1,23 @@
-﻿@model CodeSnippets.Models.Problem
+﻿@model IEnumerable<CodeSnippets.Models.Problem>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Problems</h1>
-    <p>@ViewBag?.Title</p>
-
-    <p>@ViewBag?.Problem?.Title</p>
-    <p>@ViewBag?.Problem?.Description</p>
-
-
+<div class="container">
+    @foreach (var problem in Model.Select(p=>p).ToList()) {
+        <div class="row">
+            <div class="col-sm">
+                @problem.Title
+            </div>
+            <div class="col-sm">
+                @problem.Description
+            </div>
+            <div class="col-sm">
+                @problem.Solution
+            </div>
+        </div>
+    }
+</div>
 </div>
