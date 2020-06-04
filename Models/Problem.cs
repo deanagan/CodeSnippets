@@ -8,9 +8,10 @@ namespace CodeSnippets.Models
         [Key]
         public int Id { get;set; }
         [Required]
+        [Display(Name="Title")]
         public string Title { get; set; }
 
-        [Required, DataType(DataType.MultilineText)]
+        [Required, DataType(DataType.MultilineText), Display(Name="Describe Problem")]
         public string Description { get; set; }
 
         [DataType(DataType.MultilineText)]

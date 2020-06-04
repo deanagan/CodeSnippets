@@ -42,7 +42,7 @@ namespace CodeSnippets.Controllers
             }
             else
             {
-                return View(_problem);
+                return View(problem);
             }
         }
 
