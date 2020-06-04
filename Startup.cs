@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+
 namespace CodeSnippets
 {
     public class Startup
@@ -23,6 +26,7 @@ namespace CodeSnippets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDirectoryBrowser();
             services.AddControllersWithViews();
         }
 
@@ -42,6 +46,21 @@ namespace CodeSnippets
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(),
+                    "node_modules")
+                ),
+                RequestPath = "/addon"
+            });
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(),
+                    "wwwroot", "images")
+                ),
+                RequestPath = "/images"
+            });
 
             app.UseRouting();
 
