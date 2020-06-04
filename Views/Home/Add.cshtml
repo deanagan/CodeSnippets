@@ -1,0 +1,26 @@
+﻿@model CodeSnippets.Models.Problem
+@{
+    ViewData["Title"] = "Add a Snippet";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Add" asp-controller="Home" method="post">
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title"/>
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" ></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Solution"></label>
+        <textarea asp-for="Solution" ></textarea>
+        <span asp-validation-for="Solution"></span>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>

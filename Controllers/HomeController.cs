@@ -12,6 +12,7 @@ namespace CodeSnippets.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private static Problem _problem = new Problem();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -23,10 +24,28 @@ namespace CodeSnippets.Controllers
             return View();
         }
 
-        public IActionResult About()
+        [HttpGet("[action]", Name = "Problems")]
+        public IActionResult Add()
         {
-            return View();
+            return View(_problem);
         }
+
+        [HttpPost("[action]")]
+        public IActionResult Add(Problem problem)
+        {
+            if (ModelState.IsValid)
+            {
+                _problem.Title = problem.Title;
+                _problem.Description = problem.Description;
+                _problem.Solution = problem.Solution;
+                return RedirectToAction("Add");
+            }
+            else
+            {
+                return View(_problem);
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,8 +1,14 @@
-﻿@{
+﻿@model CodeSnippets.Models.Problem
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Problems</h1>
+    <p>@ViewBag?.Title</p>
+
+    <p>@ViewBag?.Problem?.Title</p>
+    <p>@ViewBag?.Problem?.Description</p>
+
+
 </div>
